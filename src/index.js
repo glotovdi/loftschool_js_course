@@ -77,11 +77,11 @@ function returnCounter(number) {
    returnArgumentsArray(1, 2, 3) вернет [1, 2, 3]
  */
 function returnArgumentsArray() {
-  const arr = [];
-  for (i = 0; i < arguments.length; i++) {
-    arr.push(arguments[i]);
+  var array = [];
+  for (var i = 0; i < arguments.length; i++) {
+    array.push(arguments[i]);
   }
-  return arr;
+  return array;
 }
 
 /*
@@ -99,6 +99,18 @@ function returnArgumentsArray() {
 
    console.log(newSum()) выведет 6
  */
-function bindFunction(fn) {}
-
+function sum(a, b) {
+  return a + b;
+}
+function bindFunction(fn) {
+  var array = [];
+  for (var i = 0; i < arguments.length; i++) {
+    array.push(arguments[i]);
+  }
+  debugger;
+  array.shift(0);
+  return fn.apply(this, [array]);
+}
+var newSum = bindFunction(sum, 2, 4, 10, 20);
+console.log(newSum());
 export { returnFirstArgument, sumWithDefaults, returnArgumentsArray, returnFnResult, returnCounter, bindFunction };
