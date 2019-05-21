@@ -30,8 +30,7 @@ function returnFirstArgument(a) {
  Пример:
    sumWithDefaults(10) вернет 110
  */
-function sumWithDefaults(a, b) {
-  b = b || 100;
+function sumWithDefaults(a, b = 100) {
   return a + b;
 }
 
@@ -60,8 +59,7 @@ function returnFnResult(fn) {
    console.log(f()); // выведет 12
    console.log(f()); // выведет 13
  */
-function returnCounter(number) {
-  number = number || 0;
+function returnCounter(number = 0) {
   return function() {
     return ++number;
   };
@@ -99,18 +97,12 @@ function returnArgumentsArray() {
 
    console.log(newSum()) выведет 6
  */
-function sum(a, b) {
-  return a + b;
-}
+
 function bindFunction(fn) {
-  var array = [];
-  for (var i = 0; i < arguments.length; i++) {
-    array.push(arguments[i]);
+  var args = [];
+  for (var i = 1; i < arguments.length; i++) {
+    args.push(arguments[i]);
   }
-  debugger;
-  array.shift(0);
-  return fn.apply(this, [array]);
+  return fn.bind(this, ...args);
 }
-var newSum = bindFunction(sum, 2, 4, 10, 20);
-console.log(newSum());
 export { returnFirstArgument, sumWithDefaults, returnArgumentsArray, returnFnResult, returnCounter, bindFunction };
