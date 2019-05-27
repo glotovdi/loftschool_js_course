@@ -35,6 +35,14 @@ function map(array, fn) {
  Посмотрите как работает reduce и повторите это поведение для массива, который будет передан в параметре array
  */
 function reduce(array, fn, initial) {
+    var acc = initial || array[0];
+    var index = !initial ? 1 : 0;
+
+    for (index; index < array.length; index++) {
+        acc = fn(acc, array[index], index, array)
+    }
+
+    return acc;
 }
 
 /*
@@ -46,6 +54,7 @@ function reduce(array, fn, initial) {
    upperProps({ name: 'Сергей', lastName: 'Петров' }) вернет ['NAME', 'LASTNAME']
  */
 function upperProps(obj) {
+    return Object.keys(obj).map(key => key.toUpperCase())
 }
 
 /*
