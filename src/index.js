@@ -75,18 +75,23 @@ function slice(array, from = 0, to = array.length) {
         to = array.length + to;
     }
 
+    if (from < 0) {
+        from = 0;
+    }
+
+    if (to > array.length) {
+        to = array.length;
+    }
+
     for (var index = from; index < to; index++) {
-        if (!array[index]) {
-            continue;
-        }
-        resultArray = [...resultArray, array[index]];
+        resultArray.push(array[index]);
     }
 
     return resultArray;
 }
 
 /*
- Задание 6 *:
+Задание 6  *: 
 
  Функция принимает объект и должна вернуть Proxy для этого объекта
  Proxy должен перехватывать все попытки записи значений свойств и возводить это значение в квадрат
