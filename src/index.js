@@ -68,15 +68,19 @@ function slice(array, from = 0, to = array.length) {
 
     /** Если аргументы отрицательные, то элементы берутся с конца */
     if (from < 0) {
-        from = array.length + from;
+        from = array.length + from < 0 ? 0 : array.length + from;
     }
+
+    /** второй вариант проверки выше */
+    // if (from < 0) {
+    //     from = array.length + from;
+    //     if (from < 0) {
+    //         from = 0
+    //     }
+    // }
 
     if (to < 0) {
         to = array.length + to;
-    }
-
-    if (from < 0) {
-        from = 0;
     }
 
     if (to > array.length) {
