@@ -16,17 +16,16 @@
    isAllTrue([100, 2, 3, 4, 5], n => n < 10) // вернет false
  */
 function isAllTrue(array, fn) {
-    catchHelperFunction(array, fn)
+    itIsArray(array);
+    itIsFunction(fn);
 
-    for (var element of array) {
+    for (let element of array) {
         if (!fn(element)) {
             return false
         }
     }
 
     return true
-    /** Если можно через reduce */
-    // return array.reduce((a, c) => a && fn(c), true);
 }
 
 /*
@@ -46,18 +45,16 @@ function isAllTrue(array, fn) {
    isSomeTrue([1, 2, 3, 4, 5], n => n > 20) // вернет false
  */
 function isSomeTrue(array, fn) {
-    catchHelperFunction(array, fn)
+    itIsArray(array);
+    itIsFunction(fn);
 
-    for (var element of array) {
+    for (let element of array) {
         if (fn(element)) {
             return true
         }
     }
 
     return false
-
-    /** Если можно через reduce */
-    // return array.reduce((a, c) => a || fn(c), false);
 }
 
 /*
@@ -73,15 +70,13 @@ function isSomeTrue(array, fn) {
  */
 function returnBadArguments(fn) {
 
-    if (!(fn instanceof Function)) {
-        throw new Error('fn is not a function')
-    }
+    itIsFunction(fn);
 
-    var arg = [...arguments].splice(1, arguments.length);
+    let arg = [...arguments].splice(1);
 
-    var errors = [];
+    let errors = [];
 
-    for (var element of arg) {
+    for (let element of arg) {
         try {
             fn(element)
         } catch (e) {
@@ -111,17 +106,20 @@ function returnBadArguments(fn) {
  */
 function calculator(number = 0) {
 
-    var object = {
+    let object = {
         sum: (...args) => args.reduce((a, c) => a + c, number),
         dif: (...args) => args.reduce((a, c) => a - c, number),
         div: (...args) => {
-            if (args.some(element => element === 0)) {
-                throw new Error('division by 0')
-            }
+            return args.reduce((a, c) => {
+                if (c === 0) {
+                    throw new Error('division by 0')
+                }
 
-            return args.reduce((a, c) => a / c, number)
+                return a / c
+            }
+            , number)
         },
-        mul: (...args) => args.reduce(((a, c) => a * c), number)
+        mul: (...args) => args.reduce((a, c) => a * c, number)
     }
 
     if (typeof (number) !== 'number') {
@@ -135,12 +133,14 @@ function calculator(number = 0) {
 
 export { isAllTrue, isSomeTrue, returnBadArguments, calculator };
 
-/** Вспомогательная функция отлавливания ошибок */
-function catchHelperFunction(array, fn) {
+function itIsArray(array) {
     if (!array.length || !Array.isArray(array)) {
         throw new Error('empty array');
     }
 
+}
+
+function itIsFunction(fn) {
     if (!(fn instanceof Function)) {
         throw new Error('fn is not a function')
     }
