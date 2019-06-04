@@ -1,6 +1,15 @@
 import { assert } from 'chai';
 import { randomValue } from '../helper';
-import { collectDOMStat, createDivWithText, deleteTextNodes, deleteTextNodesRecursive, findAllPSiblings, findError, observeChildNodes, prepend } from '../src/index';
+import {
+    collectDOMStat,
+    createDivWithText,
+    deleteTextNodes,
+    deleteTextNodesRecursive,
+    findAllPSiblings,
+    findError,
+    observeChildNodes,
+    prepend
+} from '../src/index';
 
 function random(type) {
     let result = randomValue(type);
@@ -108,8 +117,14 @@ describe('ДЗ 4 - Работа с DOM', () => {
             let text1 = random('string');
             let text2 = random('string');
             let stat = {
-                tags: { P: 1, B: 2 },
-                classes: { [class1]: 2, [class2]: 1 },
+                tags: {
+                    P: 1,
+                    B: 2
+                },
+                classes: {
+                    [class1]: 2,
+                    [class2]: 1
+                },
                 texts: 3
             };
             let result;
@@ -120,7 +135,7 @@ describe('ДЗ 4 - Работа с DOM', () => {
         });
     });
 
-    describe.only('observeChildNodes', () => {
+    describe('observeChildNodes', () => {
         it('должна вызывать fn при добавлении элементов в указанный элемент', done => {
             let where = document.createElement('div');
             let fn = info => {

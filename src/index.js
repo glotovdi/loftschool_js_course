@@ -15,7 +15,7 @@ function createDivWithText(text) {
 
     element.innerText = text;
 
-    return element
+    return element;
 }
 
 /*
@@ -27,7 +27,7 @@ function createDivWithText(text) {
    prepend(document.querySelector('#one'), document.querySelector('#two')) // добавит элемент переданный первым аргументом в начало элемента переданного вторым аргументом
  */
 function prepend(what, where) {
-    where.prepend(what)
+    where.prepend(what);
 }
 
 /*
@@ -50,8 +50,7 @@ function prepend(what, where) {
    findAllPSiblings(document.body) // функция должна вернуть массив с элементами div и span т.к. следующим соседом этих элементов является элемент с тегом P
  */
 function findAllPSiblings(where) {
-    return [...where.childNodes].filter(node =>
-        node.nextElementSibling && node.nextElementSibling.tagName === 'P')
+    return [...where.childNodes].filter(node => node.nextElementSibling && node.nextElementSibling.tagName === 'P');
 }
 
 /*
@@ -137,7 +136,7 @@ function collectDOMStat(root) {
         tags: {},
         classes: {},
         texts: 0
-    }
+    };
 
     recursion(root, statObject);
 
@@ -146,7 +145,6 @@ function collectDOMStat(root) {
 
 function recursion(root, statObject) {
     [...root.childNodes].forEach(node => {
-
         /** Cчитаем тексты */
         if (node.nodeType === 3) {
             statObject.texts++;
@@ -156,15 +154,15 @@ function recursion(root, statObject) {
 
         /** Считаем классы */
         for (let styleClass of node.classList) {
-            objectIterator(styleClass, statObject.classes)
+            objectIterator(styleClass, statObject.classes);
         }
 
         /** Считаем теги */
-        objectIterator(node.nodeName, statObject.tags)
+        objectIterator(node.nodeName, statObject.tags);
 
         /**  рекурсию */
-        recursionHelper(recursion, node, statObject)
-    })
+        recursionHelper(recursion, node, statObject);
+    });
 }
 /*
  Задание 8 *:
@@ -199,19 +197,28 @@ function recursion(root, statObject) {
    }
  */
 function observeChildNodes(where, fn) {
-
-    var observer = new MutationObserver(function (mutations) {
-        mutations.forEach(function (mutation) {
+    var observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
             if (mutation.addedNodes.length) {
-                fn({ type: 'insert', nodes: [...mutation.addedNodes] })
+                fn({
+                    type: 'insert',
+                    nodes: [...mutation.addedNodes]
+                });
             }
             if (mutation.removedNodes.length) {
-                fn({ type: 'remove', nodes: [...mutation.removedNodes] })
+                fn({
+                    type: 'remove',
+                    nodes: [...mutation.removedNodes]
+                });
             }
         });
     });
 
-    observer.observe(where, { childList: true, subtree: true, characterData: true });
+    observer.observe(where, {
+        childList: true,
+        subtree: true,
+        characterData: true
+    });
 }
 
 function deleteTextNodesHelper(where, isNeedRecursive = false) {
@@ -223,9 +230,8 @@ function deleteTextNodesHelper(where, isNeedRecursive = false) {
             deleteTextNodesRecursive(node);
         }
         if (isNeedRecursive) {
-            recursionHelper(deleteTextNodesRecursive, node)
+            recursionHelper(deleteTextNodesRecursive, node);
         }
-
     });
 }
 
@@ -237,11 +243,19 @@ function recursionHelper(fn, node, ...args) {
 
 function objectIterator(prop, object) {
     if (!object[prop]) {
-        object[prop] = 1
+        object[prop] = 1;
     } else {
-        object[prop]++
+        object[prop]++;
     }
 }
 
-export { createDivWithText, prepend, findAllPSiblings, findError, deleteTextNodes, deleteTextNodesRecursive, collectDOMStat, observeChildNodes };
-
+export {
+    createDivWithText,
+    prepend,
+    findAllPSiblings,
+    findError,
+    deleteTextNodes,
+    deleteTextNodesRecursive,
+    collectDOMStat,
+    observeChildNodes
+};
