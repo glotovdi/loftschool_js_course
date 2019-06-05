@@ -43,7 +43,6 @@ function createDiv() {
 }
 
 function dragStart(ev) {
-    debugger;
     ev.dataTransfer.effectAllowed = 'move';
     ev.dataTransfer.setData('Text', ev.target.getAttribute('id'));
     ev.dataTransfer.setDragImage(ev.target, 100, 100);

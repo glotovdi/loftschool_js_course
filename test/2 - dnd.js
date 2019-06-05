@@ -36,7 +36,7 @@ describe('ДЗ 5.2 - Div D&D', () => {
 
         it('создавать div с классом draggable-div при клике на кнопку', () => {
             let divsCount = homeworkContainer.querySelectorAll('.draggable-div').length;
-            console.log(divsCount);
+
             let newDivsCount;
 
             addDivButton.dispatchEvent(new MouseEvent('click', { view: window }));
