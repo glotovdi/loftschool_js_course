@@ -39,18 +39,20 @@ describe('ДЗ 6.2 - Фильтр городов', () => {
                 /* eslint-disable max-nested-callbacks */
                 let result = filterPage.loadTowns();
 
-                result.then(towns => {
-                    assert(Array.isArray(towns), 'должен быть массивом');
-                    assert(towns.length == 50, 'неверный размер массива');
-                    towns.forEach((town, i, towns) => {
-                        assert(town.hasOwnProperty('name'), 'город должен иметь свойтво name');
+                result
+                    .then(towns => {
+                        assert(Array.isArray(towns), 'должен быть массивом');
+                        assert(towns.length == 50, 'неверный размер массива');
+                        towns.forEach((town, i, towns) => {
+                            assert(town.hasOwnProperty('name'), 'город должен иметь свойтво name');
 
-                        if (i) {
-                            assert(towns[i - 1].name < town.name, 'города должны быть отсортированы');
-                        }
-                    });
-                    done();
-                }).catch(done);
+                            if (i) {
+                                assert(towns[i - 1].name < town.name, 'города должны быть отсортированы');
+                            }
+                        });
+                        done();
+                    })
+                    .catch(done);
                 /* eslint-enable */
             });
         });

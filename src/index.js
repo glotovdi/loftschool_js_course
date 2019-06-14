@@ -29,6 +29,19 @@ function delayPromise(seconds) {
  Пример:
    loadAndSortTowns().then(towns => console.log(towns)) // должна вывести в консоль отсортированный массив городов
  */
-function loadAndSortTowns() {}
+function loadAndSortTowns() {
+    var promise = new Promise(resolve => {
+        var request = new XMLHttpRequest();
+
+        request.open('GET', 'https://raw.githubusercontent.com/smelukov/citiesTest/master/cities.json');
+        request.responseType = 'json';
+        request.onload = () => {
+            resolve(request.response.sort((a, b) => (a.name > b.name ? 1 : -1)));
+        };
+        request.send();
+    });
+
+    return promise;
+}
 
 export { delayPromise, loadAndSortTowns };

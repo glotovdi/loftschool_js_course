@@ -2,7 +2,7 @@ import assert from 'assert';
 import { delayPromise, loadAndSortTowns } from '../src/index';
 
 describe('ДЗ 6.1 - Асинхронность и работа с сетью', () => {
-    describe.only('delayPromise', () => {
+    describe('delayPromise', () => {
         it('должна возвращать Promise', () => {
             let result = delayPromise(1);
 
