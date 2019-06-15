@@ -1,4 +1,6 @@
-import { loadAndSortTowns } from '.';
+import {
+  loadAndSortTowns
+} from './index';
 
 /*
  Страница должна предварительно загрузить список городов из
@@ -39,7 +41,7 @@ const homeworkContainer = document.querySelector('#homework-container');
  https://raw.githubusercontent.com/smelukov/citiesTest/master/cities.json
  */
 function loadTowns() {
-    return loadAndSortTowns();
+  return loadAndSortTowns();
 }
 
 /*
@@ -54,7 +56,7 @@ function loadTowns() {
    isMatching('Moscow', 'Moscov') // false
  */
 function isMatching(full, chunk) {
-    return full.toLowerCase().includes(chunk.toLowerCase());
+  return full.toLowerCase().includes(chunk.toLowerCase());
 }
 
 /* Блок с надписью "Загрузка" */
@@ -66,8 +68,23 @@ const filterInput = homeworkContainer.querySelector('#filter-input');
 /* Блок с результатами поиска */
 const filterResult = homeworkContainer.querySelector('#filter-result');
 
+
+let towns = []
+
 filterInput.addEventListener('keyup', function() {
-    // это обработчик нажатия кливиш в текстовом поле
+  filterResult.innerHTML = filterInput.value ? towns
+    .filter(item => isMatching(item.name, filterInput.value))
+    .map(item => `<div>${item.name}</div>`)
+    .join('\n') : 'Начните ввод';
 });
 
-export { loadTowns, isMatching };
+loadTowns().then(response => {
+  towns = response;
+  loadingBlock.style.display = 'none';
+  filterBlock.style.display = 'block';
+})
+
+export {
+  loadTowns,
+  isMatching
+};
