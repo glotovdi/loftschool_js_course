@@ -1,6 +1,4 @@
-import {
-  loadAndSortTowns
-} from './index';
+import { loadAndSortTowns } from './index';
 
 /*
  Страница должна предварительно загрузить список городов из
@@ -41,7 +39,7 @@ const homeworkContainer = document.querySelector('#homework-container');
  https://raw.githubusercontent.com/smelukov/citiesTest/master/cities.json
  */
 function loadTowns() {
-  return loadAndSortTowns();
+    return loadAndSortTowns();
 }
 
 /*
@@ -56,7 +54,7 @@ function loadTowns() {
    isMatching('Moscow', 'Moscov') // false
  */
 function isMatching(full, chunk) {
-  return full.toLowerCase().includes(chunk.toLowerCase());
+    return full.toLowerCase().includes(chunk.toLowerCase());
 }
 
 /* Блок с надписью "Загрузка" */
@@ -68,23 +66,21 @@ const filterInput = homeworkContainer.querySelector('#filter-input');
 /* Блок с результатами поиска */
 const filterResult = homeworkContainer.querySelector('#filter-result');
 
-
-let towns = []
+let towns = [];
 
 filterInput.addEventListener('keyup', function() {
-  filterResult.innerHTML = filterInput.value ? towns
-    .filter(item => isMatching(item.name, filterInput.value))
-    .map(item => `<div>${item.name}</div>`)
-    .join('\n') : 'Начните ввод';
+    filterResult.innerHTML = filterInput.value
+        ? towns
+              .filter(item => isMatching(item.name, filterInput.value))
+              .map(item => `<div>${item.name}</div>`)
+              .join('\n')
+        : 'Начните ввод';
 });
 
 loadTowns().then(response => {
-  towns = response;
-  loadingBlock.style.display = 'none';
-  filterBlock.style.display = 'block';
-})
+    towns = response;
+    filterBlock.style.display = 'block';
+    loadingBlock.style.display = 'none';
+});
 
-export {
-  loadTowns,
-  isMatching
-};
+export { loadTowns, isMatching };
